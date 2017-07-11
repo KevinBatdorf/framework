@@ -75,7 +75,10 @@ class Application extends Container
             return;
         }
         $this->loadedProviders[$providerName] = true;
-        $provider->register();
+        
+        if (method_exists($provider, 'register')) {
+            $provider->register();
+        }
 
         if (method_exists($provider, 'boot')) {
             $provider->boot();
